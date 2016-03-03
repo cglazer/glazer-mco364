@@ -1,10 +1,10 @@
 package glazer.paint;
 
-public class Point {
+public class Points {
 	private int x;
 	private int y;
 
-	public Point(int x, int y) {
+	public Points(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

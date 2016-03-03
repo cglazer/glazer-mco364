@@ -2,11 +2,15 @@ package glazer.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.Stack;
+
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Canvas extends JPanel {
@@ -20,6 +24,7 @@ public class Canvas extends JPanel {
 
 	public Canvas() {
 		setBackground(Color.WHITE);
+		setCursor();
 		this.tool = new PencilTool();
 		this.buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		this.color = Color.BLACK;
@@ -99,9 +104,9 @@ public class Canvas extends JPanel {
 
 	public void undo() {
 		if (!undo.isEmpty()) {
+			redo.add(copyImage(buffer));
 			BufferedImage b = undo.pop();
 			buffer = b;
-			redo.add(b);
 
 		}
 		repaint();
@@ -122,5 +127,11 @@ public class Canvas extends JPanel {
 		g.drawImage(source, 0, 0, null);
 		g.dispose();
 		return b;
+	}
+
+	public void setCursor() {
+		ImageIcon icon = new ImageIcon(getClass().getResource("PencilIcon.jpg"));
+		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+				icon.getImage(), new Point(0, 30), " "));
 	}
 }

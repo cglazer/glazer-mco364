@@ -72,6 +72,7 @@ public class PaintFrame extends JFrame {
 		this.northPanel.add(this.color);
 		this.northPanel.add(this.colors);
 		setIconImage(setImage("./paintIcon.jpg", 10, 10).getImage());
+		// setIconImage(setImage("./GameIconT.ico", 10, 10).getImage());
 		this.eraser.setIcon(setImage("./EraserIcon.png", 1, 1));
 		this.line.setIcon(setImage("LineIcon.png", 1, 1));
 		this.BucketFill.setIcon(setImage("BucketFillIcon.jpg", 1, 1));
@@ -162,6 +163,7 @@ public class PaintFrame extends JFrame {
 			}
 
 		});
+		
 
 	}
 
