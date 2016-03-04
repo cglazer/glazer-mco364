@@ -23,19 +23,20 @@ public class PaintFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Container container;
 	private Canvas canvas;
-
-	private JButton eraser;
-	private JButton line;
-	private JButton pencil;
-	private JButton rectangle;
-	private JButton oval;
+	private ToolButton eraser;
 	private JPanel northPanel;
-	private JButton BucketFill;
 	private JButton undo;
 	private JButton redo;
 	private JButton colors;
 	private JLabel color;
 	private Color newColor;
+	private PaintProperties properties;
+	private EraserTool eraserTool;
+	private LineTool lineTool;
+	private OvalTool ovalTool;
+	private PencilTool pencilTool;
+	private RectangleTool rectangleTool;
+	private BucketTool bucketTool;
 
 	public PaintFrame() {
 		setTitle("Paint");
@@ -44,25 +45,21 @@ public class PaintFrame extends JFrame {
 		this.container = getContentPane();
 		this.container.setLayout(new BorderLayout());
 		this.canvas = new Canvas();
-		this.BucketFill = new JButton();
-		container.add(canvas, BorderLayout.CENTER);
+		this.container.add(canvas, BorderLayout.CENTER);
 		this.northPanel = new JPanel();
-		this.eraser = new JButton();
 		this.container.add(northPanel, BorderLayout.NORTH);
-		this.northPanel.add(eraser);
-		this.line = new JButton();
-		this.pencil = new JButton();
-		this.rectangle = new JButton();
-		this.oval = new JButton();
 		this.undo = new JButton();
 		this.redo = new JButton();
 		this.colors = new JButton();
 		this.color = new JLabel("C");
-		this.northPanel.add(line);
-		this.northPanel.add(pencil);
-		this.northPanel.add(this.rectangle);
-		this.northPanel.add(this.oval);
-		this.northPanel.add(this.BucketFill);
+		this.properties = new PaintProperties(800, 600);
+		this.eraserTool = new EraserTool(this.properties);
+		this.lineTool = new LineTool(this.properties);
+		this.ovalTool = new OvalTool(this.properties);
+		this.pencilTool = new PencilTool(this.properties);
+		this.rectangleTool = new RectangleTool(this.properties);
+		this.bucketTool = new BucketTool(this.properties);
+
 		this.northPanel.add(this.undo);
 		this.northPanel.add(this.redo);
 		this.color.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -71,77 +68,36 @@ public class PaintFrame extends JFrame {
 		setColor(Color.BLACK);
 		this.northPanel.add(this.color);
 		this.northPanel.add(this.colors);
-		setIconImage(setImage("./paintIcon.jpg", 10, 10).getImage());
-		// setIconImage(setImage("./GameIconT.ico", 10, 10).getImage());
-		this.eraser.setIcon(setImage("./EraserIcon.png", 1, 1));
-		this.line.setIcon(setImage("LineIcon.png", 1, 1));
-		this.BucketFill.setIcon(setImage("BucketFillIcon.jpg", 1, 1));
-		this.oval.setIcon(setImage("OvalIcon.png", 1, 1));
-		this.pencil.setIcon(setImage("PencilIcon.jpg", 1, 1));
-		this.rectangle.setIcon(setImage("RectangleIcon.jpg", 1, 1));
-		this.redo.setIcon(setImage("RedoIcon.jpg", 1, 1));
-		this.undo.setIcon(setImage("UndoIcon.jpg", 1, 1));
-		this.colors.setIcon(setImage("ColorsIcon.jpg", 4, 3));
-
-		this.eraser.addActionListener(new ActionListener() {
-
+		setIconImage(setImage("/paintIcon.jpg", 10, 10).getImage());
+		this.redo.setIcon(setImage("/RedoIcon.jpg", 1, 1));
+		this.undo.setIcon(setImage("/UndoIcon.jpg", 1, 1));
+		this.colors.setIcon(setImage("/ColorsIcon.jpg", 4, 3));
+		canvas.setTool(pencilTool);
+		ToolButton buttons[] = new ToolButton[] { new ToolButton(bucketTool, "/BucketFillIcon.jpg"),
+				new ToolButton(eraserTool, "/EraserIcon.png"), new ToolButton(lineTool, "/LineIcon.png"),
+				new ToolButton(pencilTool, "/PencilIcon.jpg"), new ToolButton(rectangleTool, "/RectangleIcon.jpg"),
+				new ToolButton(ovalTool, "/OvalIcon.png") };
+		ActionListener listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				canvas.setTool(new EraserTool());
-				;
+				ToolButton button = (ToolButton) e.getSource();
+				canvas.setTool(button.getTool());
+
 			}
-
-		});
-		this.line.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				canvas.setTool(new LineTool());
-			}
-
-		});
-		this.pencil.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				canvas.setTool(new PencilTool());
-			}
-
-		});
-		this.rectangle.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				canvas.setTool(new RectangleTool());
-			}
-
-		});
-		this.oval.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				canvas.setTool(new OvalTool());
-			}
-
-		});
-		this.BucketFill.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				canvas.setTool(new BucketTool());
-			}
-
-		});
+		};
+		for (ToolButton button : buttons) {
+			this.northPanel.add(button);
+			button.addActionListener(listener);
+		}
 		this.colors.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// canvas.setColor(Color.RED);
-				newColor = JColorChooser.showDialog(null, "Choose a color",
-						Color.BLACK);
+				newColor = JColorChooser.showDialog(null, "Choose a color", Color.BLACK);
 				if (newColor != null) {
 					setColor(newColor);
-					canvas.setColor(newColor);
+					properties.setColor(newColor);
 				}
 			}
 
@@ -163,7 +119,6 @@ public class PaintFrame extends JFrame {
 			}
 
 		});
-		
 
 	}
 
@@ -178,8 +133,7 @@ public class PaintFrame extends JFrame {
 		width *= 20;
 		height *= 20;
 		ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
-		Image img = icon.getImage().getScaledInstance(width, height,
-				java.awt.Image.SCALE_SMOOTH);
+		Image img = icon.getImage().getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
 		icon.setImage(img);
 		return icon;
 	}

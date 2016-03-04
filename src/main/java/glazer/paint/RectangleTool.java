@@ -1,10 +1,14 @@
 package glazer.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class RectangleTool implements Tool {
+public class RectangleTool extends Tool {
+	public RectangleTool(PaintProperties properties) {
+		super(properties);
+		// TODO Auto-generated constructor stub
+	}
+
 	private int x1;
 	private int y1;
 	private int x2;
@@ -14,7 +18,7 @@ public class RectangleTool implements Tool {
 	private int startX;
 	private int startY;
 
-	public void mousePressed(Graphics g, int x, int y, Color color,
+	public void mousePressed(Graphics g, int x, int y,
 			BufferedImage image) {
 		// TODO Auto-generated method stub
 		this.x1 = x;
@@ -44,29 +48,29 @@ public class RectangleTool implements Tool {
 		}
 	}
 
-	public void mouseReleased(Graphics g, int x, int y, Color color) {
+	public void mouseReleased(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
 		this.x2 = x;
 		this.y2 = y;
 		setStartX();
 		setStartY();
-		g.setColor(color);
+		g.setColor(properties.getColor());
 		g.drawRect(this.startX, this.startY, width, height);
 		
 		
 	}
 
-	public void mouseDragged(Graphics g, int x, int y, Color color) {
+	public void mouseDragged(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
 		this.x2 = x;
 		this.y2 = y;
 	}
 
-	public void drawPreview(Graphics g, Color color) {
+	public void drawPreview(Graphics g) {
 		// TODO Auto-generated method stub
 		setStartX();
 		setStartY();
-		g.setColor(color);
+		g.setColor(properties.getColor());
 		g.drawRect(this.startX, this.startY, width, height);
 		
 	}

@@ -4,13 +4,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public interface Tool {
+public abstract class Tool {
+
+	protected PaintProperties properties;
+
 	// by definition, all methods of an interface are public
-	void mousePressed(Graphics g, int x, int y, Color color, BufferedImage image);
+	public Tool(PaintProperties properties) {
+		this.properties = properties;
+	}
 
-	void mouseReleased(Graphics g, int x, int y, Color color);
+	abstract void mousePressed(Graphics g, int x, int y, BufferedImage image);
 
-	void mouseDragged(Graphics g, int x, int y, Color color);
+	abstract void mouseReleased(Graphics g, int x, int y);
 
-	void drawPreview(Graphics g, Color color);
+	abstract void mouseDragged(Graphics g, int x, int y);
+
+	abstract void drawPreview(Graphics g);
 }

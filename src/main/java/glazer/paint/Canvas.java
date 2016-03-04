@@ -1,5 +1,6 @@
 package glazer.paint;
 
+//paint.net
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -20,14 +21,11 @@ public class Canvas extends JPanel {
 	private Stack<BufferedImage> redo;
 	private BufferedImage buffer;
 	private Tool tool;
-	private Color color;
 
 	public Canvas() {
 		setBackground(Color.WHITE);
 		setCursor();
-		this.tool = new PencilTool();
 		this.buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		this.color = Color.BLACK;
 
 		this.undo = new Stack<BufferedImage>();
 		this.redo = new Stack<BufferedImage>();
@@ -52,16 +50,14 @@ public class Canvas extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
 				undo.add(copyImage(buffer));
-				tool.mousePressed(buffer.getGraphics(), e.getX(), e.getY(),
-						color, buffer);
+				tool.mousePressed(buffer.getGraphics(), e.getX(), e.getY(),  buffer);
 				repaint();
 			}
 
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
 
-				tool.mouseReleased(buffer.getGraphics(), e.getX(), e.getY(),
-						color);
+				tool.mouseReleased(buffer.getGraphics(), e.getX(), e.getY());
 				repaint();
 
 			}
@@ -71,8 +67,7 @@ public class Canvas extends JPanel {
 
 			public void mouseDragged(MouseEvent e) {
 				// TODO Auto-generated method stub
-				tool.mouseDragged(buffer.getGraphics(), e.getX(), e.getY(),
-						color);
+				tool.mouseDragged(buffer.getGraphics(), e.getX(), e.getY());
 				repaint();
 			}
 
@@ -90,16 +85,12 @@ public class Canvas extends JPanel {
 		super.paintComponent(g);
 
 		g.drawImage(buffer, 0, 0, null);
-		tool.drawPreview(g, color);
+		tool.drawPreview(g);
 	}
 
 	public void setTool(Tool tool) {
 		// TODO Auto-generated method stub
 		this.tool = tool;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
 	}
 
 	public void undo() {
@@ -110,6 +101,7 @@ public class Canvas extends JPanel {
 
 		}
 		repaint();
+		revalidate();
 	}
 
 	public void redo() {
@@ -118,11 +110,11 @@ public class Canvas extends JPanel {
 
 		}
 		repaint();
+		revalidate();
 	}
 
 	public BufferedImage copyImage(BufferedImage source) {
-		BufferedImage b = new BufferedImage(source.getWidth(),
-				source.getHeight(), source.getType());
+		BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
 		Graphics g = b.getGraphics();
 		g.drawImage(source, 0, 0, null);
 		g.dispose();
@@ -130,8 +122,7 @@ public class Canvas extends JPanel {
 	}
 
 	public void setCursor() {
-		ImageIcon icon = new ImageIcon(getClass().getResource("PencilIcon.jpg"));
-		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-				icon.getImage(), new Point(0, 30), " "));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/PencilIcon.jpg"));
+		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(icon.getImage(), new Point(0, 30), " "));
 	}
 }
