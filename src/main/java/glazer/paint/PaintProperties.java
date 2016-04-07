@@ -3,6 +3,8 @@ package glazer.paint;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import javax.inject.Singleton;
+@Singleton
 public class PaintProperties {
 	private int width;
 	private int height;
@@ -11,6 +13,14 @@ public class PaintProperties {
 	private boolean fill;
 	private BufferedImage image;
 
+	public PaintProperties(){
+		this.width=800;
+		this.height=600;
+		//this.image=new BufferedImage();
+		this.color=Color.BLACK;
+		this.weight=1;
+		this.fill=false;
+	}
 	public PaintProperties(int width, int height) {
 		this.color = Color.BLACK;
 		this.weight=1;
