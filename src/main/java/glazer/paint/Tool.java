@@ -2,6 +2,7 @@ package glazer.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public abstract class Tool {
@@ -13,11 +14,15 @@ public abstract class Tool {
 		this.properties = properties;
 	}
 
-	abstract void mousePressed(Graphics g, int x, int y, BufferedImage image);
+	abstract void mousePressed(Graphics2D g, int x, int y, BufferedImage image);
 
-	abstract void mouseReleased(Graphics g, int x, int y);
+	abstract void mouseReleased(Graphics2D g, int x, int y);
 
-	abstract void mouseDragged(Graphics g, int x, int y);
+	abstract void mouseDragged(Graphics2D g, int x, int y);
 
-	abstract void drawPreview(Graphics g);
+	abstract  void drawPreview(Graphics2D g);
+		// TODO Auto-generated method stub
+		
+	
+
 }

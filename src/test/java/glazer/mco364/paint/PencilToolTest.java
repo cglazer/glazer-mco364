@@ -4,7 +4,7 @@ import glazer.paint.PaintProperties;
 import glazer.paint.PencilTool;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import org.junit.Test;
@@ -16,7 +16,7 @@ public class PencilToolTest {
 		PaintProperties properties = Mockito.mock(PaintProperties.class);
 		Mockito.when(properties.getColor()).thenReturn(Color.RED);
 		PencilTool tool = new PencilTool(properties);
-		Graphics g = Mockito.mock(Graphics.class);
+		Graphics2D g = Mockito.mock(Graphics2D.class);
 		BufferedImage image = Mockito.mock(BufferedImage.class);
 		Mockito.when(image.getGraphics()).thenReturn(g);
 		tool.mousePressed(g, 5, 5, image);
@@ -28,7 +28,7 @@ public class PencilToolTest {
 		PaintProperties properties = Mockito.mock(PaintProperties.class);
 		Mockito.when(properties.getColor()).thenReturn(Color.RED);
 		PencilTool tool = new PencilTool(properties);
-		Graphics g = Mockito.mock(Graphics.class);
+		Graphics2D g = Mockito.mock(Graphics2D.class);
 		BufferedImage image = Mockito.mock(BufferedImage.class);
 		Mockito.when(image.getGraphics()).thenReturn(g);
 		tool.mousePressed(g, 5, 5, image);

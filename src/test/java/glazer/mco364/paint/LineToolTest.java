@@ -4,8 +4,9 @@ import glazer.paint.LineTool;
 import glazer.paint.PaintProperties;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -16,7 +17,7 @@ public class LineToolTest {
 		PaintProperties properties = Mockito.mock(PaintProperties.class);
 		Mockito.when(properties.getColor()).thenReturn(Color.RED);
 		LineTool tool = new LineTool(properties);
-		Graphics g = Mockito.mock(Graphics.class);
+		Graphics2D g = Mockito.mock(Graphics2D.class);
 		BufferedImage image = Mockito.mock(BufferedImage.class);
 		Mockito.when(image.getGraphics()).thenReturn(g);
 		tool.mousePressed(g, 5, 6, image);
@@ -31,7 +32,7 @@ public class LineToolTest {
 		PaintProperties properties = Mockito.mock(PaintProperties.class);
 		Mockito.when(properties.getColor()).thenReturn(Color.RED);
 		LineTool tool = new LineTool(properties);
-		Graphics g = Mockito.mock(Graphics.class);
+		Graphics2D g = Mockito.mock(Graphics2D.class);
 		BufferedImage image = Mockito.mock(BufferedImage.class);
 		Mockito.when(image.getGraphics()).thenReturn(g);
 		tool.mousePressed(g, 3, 4, image);

@@ -1,6 +1,6 @@
 package glazer.paint;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class RectangleTool extends Tool {
@@ -18,7 +18,7 @@ public class RectangleTool extends Tool {
 	private int startX;
 	private int startY;
 
-	public void mousePressed(Graphics g, int x, int y,
+	public void mousePressed(Graphics2D g, int x, int y,
 			BufferedImage image) {
 		// TODO Auto-generated method stub
 		this.x1 = x;
@@ -48,7 +48,7 @@ public class RectangleTool extends Tool {
 		}
 	}
 
-	public void mouseReleased(Graphics g, int x, int y) {
+	public void mouseReleased(Graphics2D g, int x, int y) {
 		// TODO Auto-generated method stub
 		this.x2 = x;
 		this.y2 = y;
@@ -60,13 +60,13 @@ public class RectangleTool extends Tool {
 		
 	}
 
-	public void mouseDragged(Graphics g, int x, int y) {
+	public void mouseDragged(Graphics2D g, int x, int y) {
 		// TODO Auto-generated method stub
 		this.x2 = x;
 		this.y2 = y;
 	}
 
-	public void drawPreview(Graphics g) {
+	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
 		setStartX();
 		setStartY();

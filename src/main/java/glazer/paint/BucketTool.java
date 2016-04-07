@@ -1,7 +1,7 @@
 package glazer.paint;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -14,7 +14,7 @@ public class BucketTool extends Tool {
 		queue = new LinkedList<Points>();
 	}
 
-	public void mousePressed(Graphics g, int x, int y, BufferedImage image) {
+	public void mousePressed(Graphics2D g, int x, int y, BufferedImage image) {
 		loopFill(x, y, image.getRGB(x, y), super.properties.getColor(), image);
 
 	}
@@ -43,17 +43,17 @@ public class BucketTool extends Tool {
 		}
 	}
 
-	public void mouseReleased(Graphics g, int x, int y) {
+	public void mouseReleased(Graphics2D g, int x, int y) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void mouseDragged(Graphics g, int x, int y) {
+	public void mouseDragged(Graphics2D g, int x, int y) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void drawPreview(Graphics g) {
+	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
 
 	}
