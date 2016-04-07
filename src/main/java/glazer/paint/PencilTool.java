@@ -1,6 +1,7 @@
 package glazer.paint;
 
 
+import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,7 @@ public class PencilTool extends Tool {
 			BufferedImage image) {
 		// TODO Auto-generated method stub
 		g.setColor(properties.getColor());
+		g.setStroke(new BasicStroke(properties.getWeight()));
 		g.fillOval(x, y, 1, 1);
 		this.x = x;
 		this.y = y;
@@ -31,6 +33,7 @@ public class PencilTool extends Tool {
 	public void mouseDragged(Graphics2D g, int x, int y) {
 		g.setColor(properties.getColor());
 		// TODO Auto-generated method stub
+		g.setStroke(new BasicStroke(properties.getWeight()));
 		g.drawLine(x, y, this.x, this.y);
 		this.x = x;
 		this.y = y;
