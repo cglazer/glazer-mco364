@@ -1,16 +1,29 @@
 package glazer.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import javax.inject.Singleton;
+@Singleton
 public class PaintProperties {
 	private int width;
 	private int height;
 	private Color color;
+	private BasicStroke stroke;
 	private int weight;
 	private boolean fill;
 	private BufferedImage image;
 
+	public PaintProperties(){
+		this.width=800;
+		this.height=600;
+		//this.image=new BufferedImage();
+		this.color=Color.BLACK;
+		this.weight=8;
+		this.stroke=new BasicStroke(weight);
+		this.fill=false;
+	}
 	public PaintProperties(int width, int height) {
 		this.color = Color.BLACK;
 		this.weight=1;
@@ -46,6 +59,12 @@ public class PaintProperties {
 		return weight;
 	}
 
+	public BasicStroke getStroke() {
+		return stroke;
+	}
+	public void setStroke(BasicStroke stroke) {
+		this.stroke = stroke;
+	}
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
